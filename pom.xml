@@ -8,5 +8,6 @@
   <description>Share your recipes in the cloud!</description>
   <modules>
   	<module>cloudrecipe-domain</module>
+  	<module>cloudrecipe-web</module>
   </modules>
 </project>
