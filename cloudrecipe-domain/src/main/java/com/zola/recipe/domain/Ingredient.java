@@ -1,10 +1,27 @@
 package com.zola.recipe.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name="ingredient")
 public class Ingredient {
 
+	@Id @GeneratedValue
+	@Column(name ="id_ingredient")
 	private int ingredientId;
+
+	@Column(name="name")
 	private String name;
+	
+	@Column(name ="description")
 	private String description;
+	
+	
 	public int getIngredientId() {
 		return ingredientId;
 	}

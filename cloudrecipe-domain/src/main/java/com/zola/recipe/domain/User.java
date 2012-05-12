@@ -1,22 +1,32 @@
 package com.zola.recipe.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name ="")
 public class User {
 
+	
+	@Id
+	@Column(name ="username")
 	private String username;
 	
+	@Column(name ="name")
 	private String name;
 	
+	@Column(name="password")
 	private String password;
 	
+	@Column(name="email")
 	private String email;
 
+	@Column(name ="id_user")
 	private int userId;
 
 	
-	
-	
-
-
 	public String getUsername() {
 		return username;
 	}
