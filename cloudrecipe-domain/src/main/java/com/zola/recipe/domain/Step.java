@@ -1,12 +1,18 @@
 package com.zola.recipe.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 
 
 @Entity
@@ -33,6 +39,30 @@ public class Step {
 	@JoinColumn(name ="part_of")
 	private Recipe recipe;
 
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(	name="ingredient_step",
+				joinColumns={@JoinColumn(name="id_step")},
+				inverseJoinColumns={@JoinColumn(name="id_ingredient")}	)
+	private Set<Ingredient> stepIngredients = new HashSet<Ingredient>();
+	
+	
+	public Set<Ingredient> getStepIngredients() {
+		return stepIngredients;
+	}
+
+	
+	public void addIngredient( Ingredient ingredient){
+		
+		if ( ingredient != null){
+			
+			stepIngredients.add(ingredient);
+			ingredient.getSteps().add(this);
+			
+		}
+		
+	}
+	
 	public int getStepId() {
 		return stepId;
 	}
