@@ -10,6 +10,7 @@
   	<module>cloudrecipe-domain</module>
   	<module>cloudrecipe-web</module>
   	<module>cloudrecipe-data</module>
+  	<module>cloudrecipe-service</module>
   </modules>
   
     <dependencies>
