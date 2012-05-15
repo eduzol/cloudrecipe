@@ -1,6 +1,7 @@
 package com.cloudrecipe.data.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -87,7 +88,7 @@ public class RecipeDAOImplTest {
 		
 	}
 	
-	
+	@Ignore
 	@Test
 	public void testRecipeDAOIngredient(){
 		
@@ -128,5 +129,82 @@ public class RecipeDAOImplTest {
 		
 		
 	}
+	
+	@Ignore
+	@Test
+	public void testGetRecipes(){
+		
+		RecipeDAO recipeDAO = (RecipeDAO)context.getBean("recipeDAO");
+		
+		
+		List<Recipe> recipes = recipeDAO.getRecipes("eduzol");
+		for( Recipe recipe : recipes){
+			System.out.println(recipe);
+		}
+		
+	}
+	
+	@Ignore
+	@Test
+	public void testDeleteRecipe(){
+		
+		RecipeDAO recipeDAO = (RecipeDAO)context.getBean("recipeDAO");
+		
+		Recipe recipe = new Recipe();
+		recipe.setName("dummy");
+		recipe.setDescription("dummy recipe");
+		recipe.setDateCreated(new Date());
+		
+		int id = recipeDAO.addRecipe(recipe, "eduzol");
+		
+		recipeDAO.deleteRecipe(id, "eduzol");
+		
+		
+		
+	}
+	
+	
+	@Test
+	public void testGetSteps(){
+		
+		
+		RecipeDAO recipeDAO = (RecipeDAO)context.getBean("recipeDAO");
+		
+		Recipe recipe = new Recipe();
+		recipe.setName("dummy");
+		recipe.setDescription("dummy recipe");
+		recipe.setDateCreated(new Date());
+		
+		int id = recipeDAO.addRecipe(recipe, "eduzol");
+		
+		Step step1 = new Step();
+		step1.setName("Fry meat");
+		step1.setDescription("11111111");
+		step1.setStepNumber(1);
+		
+		Step step2 = new Step();
+		step2.setName("Fry meat");
+		step2.setDescription("22222222");
+		step2.setStepNumber(2);
+		
+		
+		recipeDAO.addStep(recipe, step1);
+		recipeDAO.addStep(recipe, step2);
+		
+		
+		List<Step> steps = recipeDAO.getSteps(recipe);
+		for( Step step : steps){
+			
+			System.out.println(step);
+		}
+		
+		Step firstStep = recipeDAO.getStep(recipe, 1);
+		
+		Assert.assertEquals(firstStep.getStepId() ,step1.getStepId());
+
+		recipeDAO.deleteRecipe(id, "eduzol");
+		
+	}
+	
 
 }
