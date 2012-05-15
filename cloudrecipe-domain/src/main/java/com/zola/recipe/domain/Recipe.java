@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -33,6 +34,36 @@ public class Recipe {
 	private Date dateCreated;
 	
 	
+	@OneToMany(cascade = {CascadeType.ALL}, mappedBy="recipe", orphanRemoval=true)
+	private Set<Step> steps = new HashSet<Step>();
+	
+	
+	
+	public Set<Step> getSteps() {
+		return steps;
+	}
+
+	public void addStep(Step step){
+		
+		if ( step != null ){
+			
+			steps.add(step);
+			System.out.println("added");
+			step.setRecipe(this);
+			System.out.println("setrecipe...");
+		}
+	}
+	
+	public void removeStep(Step step){
+		
+		if ( step != null ){
+			steps.remove(step);
+			step.setRecipe(null);
+			
+		}
+		
+	}
+	
 	@ManyToOne
 	@JoinColumn(name="created_by")
 	private User creator;
@@ -42,6 +73,8 @@ public class Recipe {
 				joinColumns={@JoinColumn(name="id_recipe")},
 				inverseJoinColumns={@JoinColumn(name="id_ingredient")}	)
 	private Set<Ingredient> ingredients = new HashSet<Ingredient>();
+	
+	
 	
 	
 	public void addIngredient( Ingredient ingredient){
@@ -106,8 +139,5 @@ public class Recipe {
 				+ dateCreated + ", creator=" + creator + "]";
 	}
 	
-	
-	
-	
-	
+
 }

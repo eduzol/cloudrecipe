@@ -35,7 +35,7 @@ public class Step {
 	private String description;
 	
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name ="part_of")
 	private Recipe recipe;
 
@@ -51,6 +51,14 @@ public class Step {
 		return stepIngredients;
 	}
 
+	
+	public void addRecipe(Recipe recipe){
+		
+		if ( recipe != null){
+			
+			recipe.addStep(this);
+		}
+	}
 	
 	public void addIngredient( Ingredient ingredient){
 		
@@ -101,6 +109,10 @@ public class Step {
 
 	public void setRecipe(Recipe recipe) {
 		this.recipe = recipe;
+		//recipe.addStep(this);
+		//boolean added = recipe.getSteps().add(this);
+		//System.out.println("*******-> "  + added);
+		
 	}
 
 	@Override
@@ -108,6 +120,30 @@ public class Step {
 		return "Step [stepId=" + stepId + ", name=" + name + ", stepNumber="
 				+ stepNumber + ", description=" + description + ", recipe="
 				+ recipe + "]";
+	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + stepId;
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Step other = (Step) obj;
+		if (stepId != other.stepId)
+			return false;
+		return true;
 	}
 	
 	
