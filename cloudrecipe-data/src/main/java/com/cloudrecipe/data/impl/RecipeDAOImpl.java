@@ -43,7 +43,23 @@ public class RecipeDAOImpl implements RecipeDAO {
 		return recipe.getRecipeId();
 		
 	}
-
+	
+	@Transactional( propagation = Propagation.REQUIRED , readOnly = false)
+	public int updateRecipe(Recipe recipe) {
+		
+		Recipe r = (Recipe) currentSession().get(Recipe.class,recipe.getRecipeId() );
+		System.out.println("DAO " + r);
+		if( recipe.getName() != null )
+			r.setName(recipe.getName());
+		
+		if( recipe.getDescription() != null)
+			r.setDescription(recipe.getDescription());
+		
+		
+		currentSession().saveOrUpdate(r);
+		return recipe.getRecipeId();
+		
+	}
 	
 	@Transactional( propagation = Propagation.REQUIRED , readOnly = false)
 	public int addStep(Recipe recipe, Step step) {

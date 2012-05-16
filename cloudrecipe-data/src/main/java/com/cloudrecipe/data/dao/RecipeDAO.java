@@ -11,6 +11,8 @@ public interface RecipeDAO {
 	
 	int addRecipe( Recipe recipe, String username);
 	
+	public int updateRecipe(Recipe recipe);
+	
 	int  addStep ( Recipe recipe, Step step);
 	
 	List<Step> getSteps( Recipe recipe);
