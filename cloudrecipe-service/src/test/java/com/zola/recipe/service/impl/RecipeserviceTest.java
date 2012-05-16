@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -23,6 +24,7 @@ public class RecipeserviceTest {
 		context = new ClassPathXmlApplicationContext("context-service.xml");
 	}
 
+	@Ignore
 	@Test
 	public void testCreateRecipe() {
 		

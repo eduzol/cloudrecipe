@@ -230,6 +230,12 @@ public class RecipeServiceImpl implements RecipeService {
 		
 	}
 
+	@Transactional(propagation =Propagation.REQUIRED , readOnly = false ) 
+	public Integer updateRecipe(Recipe recipe) {
+		int id  = recipeDAO.updateRecipe(recipe);
+		return id;
+	}
+
 	
 
 }

@@ -13,7 +13,7 @@ public interface RecipeService {
 	Integer addOrUpdateRecipe( Recipe recipe, String username);
 	List<Recipe> getRecipes( String username) throws RecipeServiceException;
 	void deleteRecipe( Integer recipeId , String username);
-	
+	Integer updateRecipe( Recipe recipe);
 	
 	//steps
 	Integer addStep(Integer recipeId, Step step) throws RecipeServiceException;
