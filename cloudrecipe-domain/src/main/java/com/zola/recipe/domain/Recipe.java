@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -34,11 +35,19 @@ public class Recipe {
 	private Date dateCreated;
 	
 	
-	@OneToMany(cascade = {CascadeType.ALL}, mappedBy="recipe", orphanRemoval=true)
+	@OneToMany(cascade = {CascadeType.ALL}, mappedBy="recipe", orphanRemoval=true, fetch=FetchType.EAGER)
 	private Set<Step> steps = new HashSet<Step>();
 	
 	
 	
+	protected void setSteps(Set<Step> steps) {
+		this.steps = steps;
+	}
+
+	protected void setIngredients(Set<Ingredient> ingredients) {
+		this.ingredients = ingredients;
+	}
+
 	public Set<Step> getSteps() {
 		return steps;
 	}
