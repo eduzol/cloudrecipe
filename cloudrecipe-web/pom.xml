@@ -15,21 +15,60 @@
   <url>http://maven.apache.org</url>
   
   <dependencies>
+    
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.8.1</version>
       <scope>test</scope>
-   </dependency>
+    </dependency>
        
+  	<dependency>
+  		<groupId>com.zola</groupId>
+  		<artifactId>cloudrecipe-service</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+    
+    <!-- SPRING MVC --> 
+    <dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-webmvc</artifactId>
+		<version>3.1.0.RELEASE</version>
+	</dependency>
+	
+	
     <dependency>
    		<groupId>org.apache.tomcat</groupId>
     	<artifactId>tomcat-api</artifactId>
     	<version>7.0.26</version>
     	<scope>provided</scope>
    </dependency>
+   
+   <!-- File Upload -->
+  	 <dependency>
+		<groupId>commons-io</groupId>
+		<artifactId>commons-io</artifactId>
+		<version>2.1</version>
+   	</dependency>
+  
     
-    
+    <dependency>
+	   <groupId>commons-fileupload</groupId>
+	   <artifactId>commons-fileupload</artifactId>
+	   <version>1.2.1</version> <!-- makesure correct version here -->
+	</dependency>
+	
+	<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.7.1</version>
+	</dependency>
+	
+	 <dependency>
+	 	<groupId>cglib</groupId>
+	 	<artifactId>cglib-nodep</artifactId>
+	 	<version>2.2.2</version>
+	 </dependency>
   </dependencies>
   
   
