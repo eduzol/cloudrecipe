@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Recipes</title>
+
+<script src="js/jquery.js"> </script>
+<script src="js/model.js"> </script>
+<script src="js/controller.js"> </script>
+<link rel="stylesheet" href="css/smoothness/jquery-ui-1.8.20.custom.css" type="text/css" /> 
+ 
+</head>
+<body>
+
+<div class="ui-widget">
+<div id="header">
+	<h1> RECIPES!</h1>
+</div>
+</div>
+
+<div id="contents">
+
+ 	<div class="ui-widget">
+		<div class="login ui-widget-header ui-corner-top">
+			<div class="login-input">
+				<p><span class="label">  Please enter your username: </span></p>
+				<input type="text"  id="txt-recipe-username" />
+				<button type="button">Login</button>
+			 </div>
+		</div>
+	</div>
+	
+	
+	
+	<div class="recipe-content">
+	
+	
+		<div id="sidebar">
+	
+			<!-- load recipes -->
+	
+		</div>
+		
+		<div class="recipe-input">
+			
+			<div class="recipe-info ui-widget">
+			
+				<div class="recipe-header ui-widget-header ui-corner-top"> 
+					<h2> Check out your recipe:</h2>
+					
+				</div>	
+				<div class="ui-widget-content ui-corner-bottom">	
+					<div class="recipe-data"> 
+						<p><span class="label-name">  Recipe Name : </span></p>
+						<input type="text"  id="txt-recipe-name" />
+					
+						<p><span class="label-description">Description  : </span></p>
+						<input type="text"  id="txt-recipe-description" />
+					</div>
+					
+					<div class="recipe-image">
+						<!--  <img src="https://plus.google.com/u/0/photos/fromphone/5742844650417738018" /> --> 
+					 
+					</div>
+				
+					<div class="recipe-steps">
+						<!-- add steps -->
+						<ol class="recipe-steps-list">
+						
+						
+						</ol>
+					
+					</div>
+				</div>
+			
+			</div>
+			
+			
+		 </div>
+	</div>
+	
+
+	
+</div>
+</body>
+</html>
