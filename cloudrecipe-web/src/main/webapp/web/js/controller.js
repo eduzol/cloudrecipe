@@ -8,14 +8,40 @@ var Controller ={};
 								console.log(message);
 					};
 					
+	
+	Controller.fillRecipe = function(){
+		
+			$('#txt-recipe-name').val(Model.recipes[Model.index].name);
+			$('#txt-recipe-description').val(Model.recipes[Model.index].description);
+		
+	};		
 					
 	Controller.fillList = 
 				function( ){
 			
-						var index = Model.index;
 						
-						$('#txt-recipe-name').val(Model.recipes[index].name);
-						$('#txt-recipe-description').val(Model.recipes[index].description);
+						Controller.fillRecipe();
+						
+						for( index in Model.recipes){
+		
+								$('.recipe-list').append('<li id="recipe-'+index+'" class="recipe-list-item"><a href="#">'+Model.recipes[index].name+'</a></li>');
+								
+								
+						}
+						
+						
+						$('.recipe-list-item').click(
+								function(){
+										var index =$(this).attr('id').split('-')[1];
+										Model.index = index;
+										Controller.fillRecipe();
+										Controller.fillSteps();
+										$('.recipe-list-item').removeClass('active');
+										$(this).addClass('active');
+										return false;
+									
+								}
+						);
 						
 				};
 				
@@ -27,26 +53,41 @@ var Controller ={};
 						
 						//get recipes 
 						Controller.log( 'steps url ' + url);
+						//remove existing recipe steps, if any
+						$('div[id^="row-"]').remove();
 						
 						$.ajax(url ,{
 								success: function(data, textStatus, jqXHR){
 									
-									//alert(data.length);
-									
 									var steps =[];
 									
 									for (var i =0; i < data.length ; i++){
-											steps[data[i].stepNumber] = data[i];
-											
+											steps[(data[i].stepNumber-1)] = data[i];
 									}
-									/*
+									
+									var rowId = 0;
 									for( index in steps){
 										
-										alert(steps[index].stepNumber);
-									}
-										*/								
-									for( index in data){
-												$(".recipe-steps-list").append('<li>'+data[index].name+'</li>');
+										
+										if ( index % 3 == 0  ){
+											if( index !=0){
+												rowId++;
+											}
+											//add row
+											$(".recipe-container").append($('<div class="row-fluid"> </div>').attr('id', 'row-'+rowId));
+																					
+										}
+										
+										$step = $('<div class="span4 recipe-step"> </div>');
+										$step
+											.append('<h2>'+steps[index].stepNumber+ '. '+steps[index].name+'</h2>')
+											.append('<p>' +steps[index].description +'</p>');
+										
+									
+									
+										$('#row-'+rowId).append($step);
+										
+										
 									}
 			 					
 								}
@@ -61,16 +102,15 @@ var Controller ={};
 $(document).ready(
 		function(){
 			
-			var host = 'http://localhost:8080/cloudrecipe';
-			Model.host =host;
-			$('div.recipe-content').hide();
 			
-			$('div.login-input button').click(
+			//$('div.recipe-content').hide();
+			
+			$('#login-button').click(
 				function(){
 					
 					var username = $('#txt-recipe-username').val();
 					Model.username = username;
-					var url = host+'/user/'+username+'/recipes';
+					var url = Model.host+'/user/'+username+'/recipes';
 					
 					
 					Controller.log( 'url ' + url);
@@ -80,8 +120,8 @@ $(document).ready(
 						 				
 						 					Model.recipes = data;
 						 					Controller.fillList();
-						 					$('div.recipe-content').show();
-						 					$('div.login').hide();
+						 					//$('div.recipe-content').show();
+						 					$('#li-login').hide();
 						 					Controller.fillSteps();
 						
 						 				},

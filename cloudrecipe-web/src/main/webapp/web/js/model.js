@@ -7,6 +7,6 @@ var Model ={};
 	Model.recipes =[];
     Model.index = index;
 	Model.username ="";
-	Model.host="";
+	Model.host='http://localhost:8080/cloudrecipe';
 
 })(Model);
