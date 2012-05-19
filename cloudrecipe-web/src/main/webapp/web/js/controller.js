@@ -6,8 +6,44 @@ var Controller ={};
 	Controller.log =function (message){
 						if ( console)
 								console.log(message);
+						else
+							alert(message);
 					};
 					
+					
+	Controller.addRecipe = function( recipe ){
+		
+			var url = Model.host+"/user/"+Model.username+"/recipes";
+			 
+		
+			$.ajax(url ,{
+					success: function(data, textStatus, jqXHR){
+						
+						$('#addRecipe').modal('hide');
+						Model.recipes.push(data);
+						Controller.fillList();
+
+					},
+					
+					error: function(){
+	 					alert('failure');
+	 				},
+	 				
+					type:"POST",
+					
+					data:{
+							"name":recipe.name,
+							"description":recipe.description
+							}
+				} 
+			);
+		
+		
+		
+	};
+	
+	
+	
 	
 	Controller.fillRecipe = function(){
 		
@@ -21,12 +57,11 @@ var Controller ={};
 			
 						
 						Controller.fillRecipe();
-						
+						//remove if already exists
+						$('.recipe-list-item').remove();
 						for( index in Model.recipes){
 		
 								$('.recipe-list').append('<li id="recipe-'+index+'" class="recipe-list-item"><a href="#">'+Model.recipes[index].name+'</a></li>');
-								
-								
 						}
 						
 						
@@ -39,7 +74,6 @@ var Controller ={};
 										$('.recipe-list-item').removeClass('active');
 										$(this).addClass('active');
 										return false;
-									
 								}
 						);
 						
@@ -66,6 +100,7 @@ var Controller ={};
 									}
 									
 									var rowId = 0;
+									Model.recipes[Model.index].steps = steps ;
 									for( index in steps){
 										
 										
@@ -75,9 +110,11 @@ var Controller ={};
 											}
 											//add row
 											$(".recipe-container").append($('<div class="row-fluid"> </div>').attr('id', 'row-'+rowId));
+											
+											
 																					
 										}
-										
+										//alert('-->' + Model.recipes[Model.index].steps[index].name);
 										$step = $('<div class="span4 recipe-step"> </div>');
 										$step
 											.append('<h2>'+steps[index].stepNumber+ '. '+steps[index].name+'</h2>')
@@ -120,7 +157,6 @@ $(document).ready(
 						 				
 						 					Model.recipes = data;
 						 					Controller.fillList();
-						 					//$('div.recipe-content').show();
 						 					$('#li-login').hide();
 						 					Controller.fillSteps();
 						
@@ -132,6 +168,44 @@ $(document).ready(
 
 				}	
 			);
+			
+			
+			$('#add-recipe-button').click(
+					
+					function(){
+						alert('clicked me');
+						var recipe = {
+								
+								name :        $('#txt-addrecipe-name').val(),
+								description : $('#txt-addrecipe-description').val()
+								
+						};
+						
+						Controller.addRecipe(recipe);
+					}
+			
+			);
+			
+			//TODO
+			$('#add-step-button').click( 
+				
+					function(){
+						//save step 
+						
+						var step ={
+								name: "",
+								description:""
+						};
+						
+						alert('current steps of recipe   ' +  Model.recipes[Model.index].name +' ' + Model.recipes[Model.index].steps.length  );
+						
+						for ( index in Model.recipes[Model.index].steps){
+							alert('step ' + index + ' ' + Model.recipes[Model.index].steps[index].name);
+						}						                                                 
+						
+					}
+			);
+			
 			
 			
 		}
